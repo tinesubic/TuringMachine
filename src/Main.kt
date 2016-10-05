@@ -9,8 +9,8 @@ private val HALT_STATE = State("halt");
 
 
 fun main(args: Array<String>) {
-    val input : String = readInputFromFile("./input.txt");
-    val program : Array<String> = readProgramFromFile("./program.txt")
+    val input: String = readInputFromFile("../inputs/input.txt");
+    val program: Array<String> = readProgramFromFile("../inputs/program.txt")
 
     val stateMap = parseStateRules(program);
     val initialState = computeInitialState(stateMap, program);
