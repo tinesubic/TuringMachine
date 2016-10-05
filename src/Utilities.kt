@@ -37,15 +37,13 @@ internal enum class Direction {
     }
 }
 
-fun String.isBlankOrComment(): Boolean = this.isBlank() || this.isComment()
+internal fun String.isBlankOrComment(): Boolean = this.isBlank() || this.isComment()
 
 private fun String.isComment(): Boolean = this.startsWith(";")
 
-fun readProgramFromFile(filepath: String): Array<String> {
-    return File(filepath).readLines().toTypedArray();
-}
+internal fun readProgramFromFile(filepath: String): Array<String> = File(filepath).readLines().toTypedArray()
 
-fun readInputFromFile(filepath: String): String {
+internal fun readInputFromFile(filepath: String): String {
     var file = File(filepath);
     for (line : String in file.readLines())
         return line;

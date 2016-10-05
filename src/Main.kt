@@ -30,17 +30,15 @@ internal fun runProgram(stateMap: Map<String, State>, initialState: State, initi
 
     var currentState = initialState;
     var tape = initialTapeState;
-    var step: Int = 0;
-    tape.printTape(step);
+    tape.printTape();
 
 
     while (currentState != HALT_STATE) {
 
         var currentRule = currentState.getRuleForCellValue(tape.currentCellValue());
-        step++;
 
         tape.applyRule(currentRule);
-        tape.printTape(step);
+        tape.printTape();
         tape.movePointer(currentRule.getDirection());
 
         currentState = currentRule.getNextState();
@@ -90,6 +88,7 @@ fun buildRules(program: Array<String>, stateMap: Map<String, State>): Map<String
 
 fun buildStates(program: Array<String>): Map<String, State> {
     var stateMap = HashMap<String, State>();
+    stateMap.put("halt", HALT_STATE)
 
     for ((i, rule: String) in program.withIndex()) {
         if (rule.isBlankOrComment())

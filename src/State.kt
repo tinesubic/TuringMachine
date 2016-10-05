@@ -23,9 +23,8 @@ class State(stateName: String) {
 
     }
 
-    internal fun getRuleForCellValue(cellValue: CellValue) : StateRule {
-       return ruleMap!![cellValue]!!;
-    }
+    internal fun getRuleForCellValue(cellValue: CellValue): StateRule = ruleMap!![cellValue]!!
 
-    private fun ruleExists(currentCellState: String): Boolean = ruleMap!!.containsKey(currentCellState as CellValue)
+    private fun ruleExists(currentCellState: String): Boolean =
+            ruleMap!!.containsKey(CellValue.getCellValueFromString(currentCellState))
 }
