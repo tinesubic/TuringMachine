@@ -58,12 +58,11 @@ fun computeInitialState(stateMap: Map<String, State>, program: Array<String>): S
 
     val firstCommand = program[i].split(" ")
 
-    val initialState : State? =stateMap[firstCommand[0]]
+    val initialState: State? = stateMap[firstCommand[0]]
 
-    if (initialState != null ) {
-        return HALT_STATE
-    } else {
-        return initialState as State
+    when (initialState) {
+        null -> return HALT_STATE
+        else -> return initialState as State
     }
 
 }
