@@ -5,23 +5,23 @@ class StateRule @Throws(Exception::class)
 constructor(currentCellValue: String, nextCellValue: String, moveDirection: String, nextState: State) {
 
 
-    private var currentCellValue: CellValue? = null;
-    private var nextCellValue: CellValue? = null;
-    private var moveDirection: Direction? = null;
-    private var nextState: State? = null;
+    private var currentCellValue: CellValue
+    private var nextCellValue: CellValue
+    private var moveDirection: Direction
+    private var nextState: State
 
     init {
-        this.currentCellValue = CellValue.getCellValueFromString(currentCellValue);
-        this.nextCellValue = CellValue.getCellValueFromString(nextCellValue);
-        this.moveDirection = Direction.getDirectionFromString(moveDirection);
-        this.nextState = nextState;
+        this.currentCellValue = CellValue.getCellValueFromString(currentCellValue)
+        this.nextCellValue = CellValue.getCellValueFromString(nextCellValue)
+        this.moveDirection = Direction.getDirectionFromString(moveDirection)
+        this.nextState = nextState
     }
 
-    internal fun getNextCellValue(): CellValue = nextCellValue!!
+    internal fun getNextCellValue(): CellValue = nextCellValue
 
-    internal fun getDirection(): Direction = moveDirection!!
+    internal fun getDirection(): Direction = moveDirection
 
-    internal fun getNextState(): State = nextState!!
+    internal fun getNextState(): State = nextState
 
 
 }

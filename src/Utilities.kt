@@ -46,9 +46,9 @@ private fun String.isComment(): Boolean = this.startsWith(";")
 internal fun readProgramFromFile(filepath: String): Array<String> = File(filepath).readLines().toTypedArray()
 
 internal fun readInputFromFile(filepath: String): String {
-    var file = File(filepath);
+    val file = File(filepath)
     for (line : String in file.readLines())
-        return line;
+        return line
 
-    return "";
+    return ""
 }

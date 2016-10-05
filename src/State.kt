@@ -6,25 +6,26 @@ import java.util.*
 class State(stateName: String) {
 
 
-    private var stateName: String;
-    private var ruleMap: HashMap<CellValue, StateRule>? = HashMap(3);
+    private var stateName: String
+    private var ruleMap: HashMap<CellValue, StateRule>
 
     init {
         this.stateName = stateName
+        this.ruleMap = HashMap(3)
     }
 
     @Throws(Exception::class)
     fun addRule(currentCellState: String, nextCellState: String, direction: String, nextState: State) {
         if (!ruleExists(currentCellState)) {
-            ruleMap!!.put(CellValue.getCellValueFromString(currentCellState), StateRule(currentCellState, nextCellState, direction, nextState))
+            ruleMap.put(CellValue.getCellValueFromString(currentCellState), StateRule(currentCellState, nextCellState, direction, nextState))
         } else {
             throw Exception("Rule already exists")
         }
 
     }
 
-    internal fun getRuleForCellValue(cellValue: CellValue): StateRule = ruleMap!![cellValue]!!
+    internal fun getRuleForCellValue(cellValue: CellValue): StateRule = ruleMap[cellValue]!!
 
     private fun ruleExists(currentCellState: String): Boolean =
-            ruleMap!!.containsKey(CellValue.getCellValueFromString(currentCellState))
+            ruleMap.containsKey(CellValue.getCellValueFromString(currentCellState))
 }
