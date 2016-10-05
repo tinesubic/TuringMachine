@@ -14,15 +14,13 @@ fun main(args: Array<String>) {
 
     val stateMap = parseStateRules(program);
     val initialState = computeInitialState(stateMap, program);
-    var tape: Tape = Tape();
 
+    var tape: Tape = Tape();
     tape.setInitialTapeState(input);
 
     runProgram(stateMap, initialState, tape);
 
 }
-
-
 
 
 internal fun runProgram(stateMap: Map<String, State>, initialState: State, initialTapeState: Tape) {
@@ -49,7 +47,7 @@ internal fun runProgram(stateMap: Map<String, State>, initialState: State, initi
 }
 
 
-
+//Finds which state should be first
 fun computeInitialState(stateMap: Map<String, State>, program: Array<String>): State {
     var i = 0;
     while (program[i].isBlankOrComment()) //skip blank lines
@@ -61,9 +59,9 @@ fun computeInitialState(stateMap: Map<String, State>, program: Array<String>): S
 }
 
 fun parseStateRules(program: Array<String>): Map<String, State> {
-    var stateMap: Map<String, State> = buildStates(program);
+    var stateMap: Map<String, State> = buildStates(program); //first, build a map of states
 
-    stateMap = buildRules(program, stateMap);
+    stateMap = buildRules(program, stateMap); //then build rule object and link them to states
 
     return stateMap;
 }
@@ -71,7 +69,7 @@ fun parseStateRules(program: Array<String>): Map<String, State> {
 fun buildRules(program: Array<String>, stateMap: Map<String, State>): Map<String, State> {
 
     for ((i, rule: String) in program.withIndex()) {
-        if (rule.isBlankOrComment())
+        if (rule.isBlankOrComment()) //skip lines which are not commancds
             continue;
 
         val commands = rule.split(" ");

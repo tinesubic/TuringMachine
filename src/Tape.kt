@@ -40,13 +40,13 @@ class Tape {
     }
 
     private fun moveLeft() {
-        when {
+        when { //if at the end of tape, add one blank cell on end
             pointer > 0 -> pointer--;
             else -> tape!!.add(0, CellValue.BLANK);
         }
     }
 
-    private fun moveRight() {
+    private fun moveRight() { //if at the beginning of tape, add a blank cell in front
         if (pointer >= tape!!.size - 1) {
             tape.add(tape.size, CellValue.BLANK)
         }

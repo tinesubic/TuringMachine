@@ -4,6 +4,7 @@ import java.io.File
  * Created by subic on 4. 10. 2016.
  */
 
+//Possible tape cell values
 internal enum class CellValue(val character: String) {
     BLANK("_"), ONE("1"), ZERO("0");
 
@@ -21,6 +22,7 @@ internal enum class CellValue(val character: String) {
 
 }
 
+//Tape movement
 internal enum class Direction {
     NO_MOVE, LEFT, RIGHT;
 
