@@ -2,21 +2,19 @@
  * Created by subic on 5. 10. 2016.
  */
 
-class Tape {
+class Tape(input: String) {
     private val tape: MutableList<CellValue> = arrayListOf()
-    private var pointer: Int
-    private var steps: Int
+    private var pointer: Int = 0
+    private var steps: Int = 0
 
     init {
-        pointer = 0
-        steps = 0
+        setInitialTapeState(input)
     }
 
 
     fun setInitialTapeState(input: String) {
-        for (char: Char in input) {
+        for (char: Char in input)
             tape.add(tape.size, CellValue.getCellValueFromString(char.toString()))
-        }
 
         if (input.length == 0)
             tape.add(CellValue.BLANK)
@@ -33,11 +31,13 @@ class Tape {
     internal fun currentCellValue(): CellValue = tape[pointer]
 
     fun applyRule(currentRule: StateRule) {
-        tape[pointer] = currentRule.getNextCellValue()
+        tape[pointer] = currentRule.nextCellValue
+        movePointer(currentRule.direction)
         steps++
+
     }
 
-    internal fun movePointer(direction: Direction) {
+    private fun movePointer(direction: Direction) {
         when (direction) {
             Direction.RIGHT -> moveRight()
             Direction.LEFT -> moveLeft()

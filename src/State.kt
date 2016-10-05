@@ -3,16 +3,10 @@ import java.util.*
 /**
  * Created by subic on 4. 10. 2016.
  */
-class State(stateName: String) {
+class State(val stateName: String) {
 
+    private val ruleMap: HashMap<CellValue, StateRule> = hashMapOf()
 
-    private var stateName: String
-    private var ruleMap: HashMap<CellValue, StateRule>
-
-    init {
-        this.stateName = stateName
-        this.ruleMap = HashMap(3)
-    }
 
     @Throws(Exception::class)
     fun addRule(currentCellState: String, nextCellState: String, direction: String, nextState: State) {

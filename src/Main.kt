@@ -9,14 +9,13 @@ private val HALT_STATE = State("halt")
 
 
 fun main(args: Array<String>) {
-    val input: String = readInputFromFile("../inputs/input.txt")
-    val program: Array<String> = readProgramFromFile("../inputs/program.txt")
+    val input: String = readInputFromFile("./input.txt")
+    val program: Array<String> = readProgramFromFile("./program.txt")
 
     val stateMap = parseStateRules(program)
     val initialState = computeInitialState(stateMap, program)
 
-    val tape: Tape = Tape()
-    tape.setInitialTapeState(input)
+    val tape: Tape = Tape(input)
 
     runProgram(stateMap, initialState, tape)
 
@@ -35,11 +34,15 @@ internal fun runProgram(stateMap: Map<String, State>, initialState: State, initi
 
         val currentRule = currentState.getRuleForCellValue(tape.currentCellValue())
 
-        tape.applyRule(currentRule)
-        tape.printTape()
-        tape.movePointer(currentRule.getDirection())
+        with(tape) {
+            this.applyRule(currentRule)
+            this.printTape()
 
-        currentState = currentRule.getNextState()
+        }
+
+
+
+        currentState = currentRule.nextState
 
     }
 
@@ -55,7 +58,14 @@ fun computeInitialState(stateMap: Map<String, State>, program: Array<String>): S
 
     val firstCommand = program[i].split(" ")
 
-    return stateMap[firstCommand[0]]!!
+    val initialState : State? =stateMap[firstCommand[0]]
+
+    if (initialState != null ) {
+        return HALT_STATE
+    } else {
+        return initialState as State
+    }
+
 }
 
 fun parseStateRules(program: Array<String>): Map<String, State> {
@@ -74,8 +84,11 @@ fun buildRules(program: Array<String>, stateMap: Map<String, State>): Map<String
 
         val commands = rule.split(" ")
         if (commands.size == COMMAND_LENGTH) {
-            val state: State = stateMap[commands[0]]!!
-            state.addRule(commands[1], commands[2], commands[3], stateMap[commands[4]]!!)
+            val state: State? = stateMap[commands[0]]
+            val nextState: State? = stateMap[commands[4]]
+
+            if (state != null && nextState != null)
+                state.addRule(commands[1], commands[2], commands[3], nextState)
         } else {
             throw Exception("Rule in line $i is invalid")
         }
